@@ -3,6 +3,21 @@ const { generateFile } = require("./generateFile");
 const { executeCpp } = require("./executeCpp");
 const cors = require("cors");
 const { executePy } = require("./executePy");
+const mongoose = require('mongoose');
+
+const mongoURI = "mongodb://localhost:27017"
+
+const connectToMongo = async () => {
+try {
+    mongoose.set('strictQuery', false)
+    mongoose.connect(mongoURI) 
+    console.log('Mongo connected')
+}
+catch(error) {
+    console.log(error)
+    process.exit()
+}
+}
 
 const app = express();
 
@@ -40,3 +55,4 @@ app.post('/run', async (req, res) => {
 app.listen(5000, () => {
     console.log(`listening n port 5000`);
 });
+
