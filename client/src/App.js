@@ -4,6 +4,10 @@ import './App.css';
 import stubs from './defaultStubs';
 import moment from "moment";
 
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-c_cpp';
+import 'ace-builds/src-noconflict/mode-python';
+import 'ace-builds/src-noconflict/theme-monokai';
 
 
 function App() {
@@ -108,7 +112,7 @@ function App() {
 
   // Render the component
   return (
-    <div className="App">
+    <div className="App" id="app-container">
       <h1>Online Code Compiler</h1>
       <div>
         <label>Language:</label>
@@ -132,14 +136,19 @@ function App() {
         <button onClick={setDefaultLanguage}>Set Default</button>
       </div>
       <br />
-      <textarea
-        rows="20"
-        cols="75"
-        value={code}
-        onChange={(e) => {
-          setCode(e.target.value);
-        }}
-      ></textarea>
+      <AceEditor
+  mode={language === 'cpp' ? 'c_cpp' : 'python'}
+  theme="monokai"
+  value={code}
+  onChange={setCode}
+  fontSize={14}
+  showPrintMargin={true}
+  showGutter={true}
+  highlightActiveLine={true}
+  style={{ margin: '0 auto', width: '50%', height: '400px' }}
+/>
+
+
       <br />
       <button onClick={handleSubmit}>Submit</button>
       <p>{status}</p>
